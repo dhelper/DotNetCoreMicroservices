@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  lunchservice:
+    image: lunchservice
+    build:
+      context: .
+      dockerfile: LunchService/Dockerfile
+    environment:
+      ConnectionStrings__DefaultConnection: "host=postgres_image;port=5432;database=lunch_db;username=dbuser;password=dbpwd"
+
+  postgres_image:
+    image: postgres:alpine
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: "dbuser"
+      POSTGRES_PASSWORD: "dbpwd"
+      POSTGRES_DB: "lunch_db"
