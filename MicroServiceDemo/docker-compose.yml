@@ -17,3 +17,10 @@ services:
       POSTGRES_USER: "dbuser"
       POSTGRES_PASSWORD: "dbpwd"
       POSTGRES_DB: "lunch_db"
+  
+  userservice:
+    image: userservice
+    build:
+      context: .
+      dockerfile: UserService/Dockerfile
+

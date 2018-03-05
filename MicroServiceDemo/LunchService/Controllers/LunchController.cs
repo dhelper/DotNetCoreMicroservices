@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LunchService.Controllers
@@ -34,9 +35,9 @@ namespace LunchService.Controllers
         /// </summary>
         /// <param name="location"></param>
         [HttpPost("/request")]
-        public Lunch AskFriendsToJoinByLocation([FromBody]string location)
+        public async Task<Lunch> AskFriendsToJoinByLocation([FromBody]string location)
         {
-            return _manager.AskFriendsToJoinLunch(location);
+            return await _manager.AskFriendsToJoinLunchAsync(location);
         }
     }
 }

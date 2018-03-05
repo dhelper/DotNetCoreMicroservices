@@ -40,6 +40,7 @@ namespace LunchService
 
             builder.RegisterType<LunchManager>().AsSelf();
             builder.RegisterType<LunchAccessor>().As<ILunchAccessor>();
+            builder.RegisterType<UserAccessor>().As<IUserAccessor>();
             builder.RegisterType<ConfigurationBasedConnectionString>().As<IConnectionStringProvider>();
 
             builder.Populate(services);
