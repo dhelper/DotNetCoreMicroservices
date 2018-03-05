@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using LunchService.Accessors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,8 +24,9 @@ namespace LunchService
         }
 
         public IConfiguration Configuration { get; set; }
+        public IContainer ApplicationContainer { get; set; }
 
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
 
@@ -33,7 +37,19 @@ namespace LunchService
                 var xmlPath = Path.Combine(basePath, $"{PlatformServices.Default.Application.ApplicationName}.xml");
                 c.IncludeXmlComments(xmlPath);
             });
+
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<LunchManager>().AsSelf();
+            builder.RegisterType<LunchAccessor>().As<ILunchAccessor>();
+
+            builder.Populate(services);
+            ApplicationContainer = builder.Build();
+            
+
+            return new AutofacServiceProvider(ApplicationContainer);
         }
+
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
