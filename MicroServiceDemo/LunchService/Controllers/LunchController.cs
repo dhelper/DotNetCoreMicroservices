@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,18 +8,20 @@ namespace LunchService.Controllers
     [Route("api/[controller]")]
     public class LunchesController : Controller
     {
+        /// <summary>
+        /// Get today's lunch friends
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<Friend> GetMyLunchPlans()
         {
             return new[] {new Friend {Name = "Jasse"}, new Friend {Name = "Dave"}};
         }
 
-        [HttpGet("Free/{city}")]
-        public IEnumerable<Friend> GetAvailableFriendsByCity([FromQuery] string city)
-        {
-            return new[] {new Friend {Name = "Jasse"}, new Friend {Name = "Dave"}};
-        }
-
+        /// <summary>
+        /// Create new ;plans based on location
+        /// </summary>
+        /// <param name="location"></param>
         [HttpPost()]
         public void AskFriendsToJoinByLocation([FromBody]string location)
         {
@@ -33,6 +36,7 @@ namespace LunchService.Controllers
     {
         public int Id { get; set; }
         public IEnumerable<Friend> Friends { get; set; }
+        public DateTime DateTime { get; set; }
         public string Location { get; set; }
     }
 
