@@ -6,6 +6,6 @@ namespace LunchService.Accessors
     public interface ILunchAccessor
     {
         Lunch GetByLocation(string location);
-        void CreateNewLunch(IEnumerable<Friend> friends);
+        Lunch CreateNewLunch(IEnumerable<Friend> friends, string location);
     }
 }

@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using LunchService.Accessors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
@@ -29,6 +25,8 @@ namespace LunchService
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddOptions();
+            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
 
             services.AddSwaggerGen(c =>
             {
@@ -42,6 +40,7 @@ namespace LunchService
 
             builder.RegisterType<LunchManager>().AsSelf();
             builder.RegisterType<LunchAccessor>().As<ILunchAccessor>();
+            builder.RegisterType<ConfigurationBasedConnectionString>().As<IConnectionStringProvider>();
 
             builder.Populate(services);
             ApplicationContainer = builder.Build();

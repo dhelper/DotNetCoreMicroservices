@@ -24,7 +24,7 @@ namespace LunchService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{location}")]
-        public IEnumerable<Friend> GetMyLunchPlans([FromQuery] string location)
+        public IEnumerable<Friend> GetMyLunchPlans(string location)
         {
             return _manager.GetLunchByLocation(location).Friends;
         }
@@ -34,25 +34,9 @@ namespace LunchService.Controllers
         /// </summary>
         /// <param name="location"></param>
         [HttpPost("/request")]
-        public void AskFriendsToJoinByLocation([FromBody]string location)
+        public Lunch AskFriendsToJoinByLocation([FromBody]string location)
         {
-            _manager.AskFriendsToJoinLunch(location);
+            return _manager.AskFriendsToJoinLunch(location);
         }
-    }
-
-  
-
-    public class Lunch
-    {
-        public int Id { get; set; }
-        public IEnumerable<Friend> Friends { get; set; }
-        public DateTime DateTime { get; set; }
-        public string Location { get; set; }
-    }
-
-    public class Friend
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
     }
 }

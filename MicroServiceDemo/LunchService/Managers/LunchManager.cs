@@ -18,7 +18,7 @@ namespace LunchService
             return _lunchAccessor.GetByLocation(location);
         }
 
-        public void AskFriendsToJoinLunch(string location)
+        public Lunch AskFriendsToJoinLunch(string location)
         {
             if(_lunchAccessor.GetByLocation(location) != null)
             {
@@ -26,7 +26,8 @@ namespace LunchService
             }
 
             var friends = Enumerable.Empty<Friend>();
-            _lunchAccessor.CreateNewLunch(friends);
+            
+            return _lunchAccessor.CreateNewLunch(friends, location);
         }
     }
 }
