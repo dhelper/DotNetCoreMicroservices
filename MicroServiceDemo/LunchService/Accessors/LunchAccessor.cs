@@ -6,9 +6,8 @@ namespace LunchService.Accessors
 {
     public class LunchAccessor : ILunchAccessor
     {
-        public LunchAccessor(IConnectionStringProvider connectionProvider)
+        public LunchAccessor()
         {
-            var connectionString = connectionProvider.GetConnectionString();
         }
         public Lunch GetByLocation(string location)
         {

@@ -24,7 +24,7 @@ namespace LunchService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{location}")]
-        public IEnumerable<Friend> GetMyLunchPlans([FromQuery] string location)
+        public IEnumerable<Friend> GetMyLunchPlans(string location)
         {
             return _manager.GetLunchByLocation(location).Friends;
         }
